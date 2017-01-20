@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="bower_components/angular-material/angular-material.css" />
+    <link rel="stylesheet" href="css/styles.css" />
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/angular-animate/angular-animate.js"></script>
+    <script src="bower_components/angular-aria/angular-aria.js"></script>
+    <script src="bower_components/angular-material/angular-material.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/controller.js"></script>
+    <script src="js/directive.js"></script>
+</head>
+<body ng-app="app" ng-controller="AppCtrl">
+    <div layout="row">
+        <div flex="33">
+            <md-content>
+                <md-list>
+                    <md-input-container>
+                        <label>Name</label>
+                        <input type="search" ng-model="q"/>
+                    </md-input-container>
+                    <md-list-item class="md-3-line" ng-repeat="client in users | filter:q" ng-click="showDetails(client)">
+                        <img ng-src="{{client.general.avatar}}" class="md-avatar" alt="{{client.general.firstName}}" />
+                        <div class="md-list-item-text" layout="column">
+                            <h3>{{ client.general.firstName + ' ' + client.general.lastName }}</h3>
+                            <h4>{{ client.job.company }}</h4>
+                            <p>{{ client.job.title }}</p>
+                        </div>
+                    </md-list-item>
+                    <md-list-item class="md-3-line" ng-if="results.length === 0">
+                        <h2>No results found</h2>
+                    </md-list-item>
+                </md-list>
+            </md-content>
+        </div>
+        <div flex="100">
+            <md-content>
+                <md-card>
+                    <md-card-content>
+                        <div class="md-tile-content" align="center">
+                            <img ng-src="{{showClient.general.avatar}}" class="md-avatar" alt="{{showClient.general.firstName}}" />
+                            <h1>{{showClient.general.firstName}} {{showClient.general.lastName}}</h1>
+
+                            <md-input-container class="md-icon-float md-block">
+                                <label>{{showClient.job.company}}, {{showClient.job.title}}</label>
+                                <md-icon md-svg-src="img/ic_person_24px.svg" class="name"></md-icon>
+                                <input ng-model="user.name" type="text" ng-disabled="true">
+                            </md-input-container>
+
+                            <md-input-container md-no-float class="md-block">
+                                <label>{{showClient.contact.phone}}</label>
+                                <md-icon md-svg-src="img/ic_phone_24px.svg"></md-icon>
+                                <input ng-model="user.phone" type="text" ng-disabled="true">
+                            </md-input-container>
+
+                            <md-input-container class="md-block">
+                                <label>{{showClient.contact.email}}</label>
+                                <md-icon md-svg-src="img/ic_email_24px.svg" class="email"></md-icon>
+                                <input ng-model="user.email" type="email" ng-disabled="true">
+                            </md-input-container>
+
+                            <md-input-container md-no-float class="md-block">
+                                <label>{{showClient.address.city}}, {{showClient.address.country}}, {{showClient.address.street}}</label>
+                                <md-icon md-svg-src="img/ic_place_24px.svg"></md-icon>
+                                <input ng-model="user.address" type="text" >
+                            </md-input-container>
+                        </div>
+                    </md-card-content>
+                </md-card>
+            </md-content>
+        </div>
+    </div>
+</body>
+</html>
